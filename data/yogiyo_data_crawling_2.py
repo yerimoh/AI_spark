@@ -54,12 +54,12 @@ desert = ['https://www.yogiyo.co.kr/mobile/?gclid=CjwKCAjwiuuRBhBvEiwAFXKaND8GP-
 
 
 categories = []
-# categories.append(chinese)
-# categories.append(korean)
-# categories.append(western)
+categories.append(chinese)
+categories.append(korean)
+categories.append(western)
 categories.append(desert)
 
-csv_num = 33
+csv_num = 0
 
 for category in categories:
     for url in category:
