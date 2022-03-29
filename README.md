@@ -14,4 +14,4 @@
 3. https://hello-bryan.tistory.com/194 (selenium 웹페이지 스크롤하기)
 
 ![image](https://user-images.githubusercontent.com/57982899/159743870-1c89ca9c-9da3-4913-86a2-640c0d52bfbe.png)
-![image](https://user-images.githubusercontent.com/57982899/159744068-ac454b83-3820-4ef2-a558-eab6832da786.png)
+![image](https://user-images.githubusercontent.com/57982899/159744068-ac454b83-3820-4ef2-a558-eab6832da786.png) 
