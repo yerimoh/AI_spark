@@ -1,0 +1,129 @@
+<!--
+실행환경
+bootstrap 4.0.0
+
+1) index.html
+사용자가 카테고리를 선택하기 위한 초기 화면 페이지
+ => radio type으로 지정된 다섯개의 목록 중 하나 선택
+ => 선택한 정보는 form을 통해 back(main.py)에 전달
+ => 해당 정보는 predict.html에 로드
+
+-->
+
+<!doctype html>
+    <html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+        <!--google font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+        <title>MSG: 만족시키자! 손님! 고객!</title>
+
+        <style>
+            .mycenter{
+                width: 1200px;
+                margin:auto;
+            }
+            .title {font-family: 'Black Han Sans', sans-serif;}
+            .sub {font-family: 'Gowun Dodum', sans-serif;}
+        </style>
+    </head>
+    <body>
+        <br>
+        <nav aria-label="breadcrumb" class="mycenter">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Prediction</li>
+          </ol>
+        </nav>
+        <div class="mycenter">
+          <div class="jumbotron">
+              <h1 class="display-4 title" >당신의 사업 분야는 무엇인가요?</h1>
+              <br>
+              <p class="lead sub">사업 분야를 선택해주세요</p>
+              <p class="lead sub">분야에 맞는 추천모델을 제공해드려요</p>
+          </div>
+
+            <form action="http://127.0.0.1:5000/predict" method="POST">
+                <div class="form-group">
+                    <div class="card-group">
+                        <div class="card">
+                          <img class="card-img-top" src="{{ url_for('static', filename='img/des.jpg')}}">
+                              <div class="form-check pl-5 pt-4">
+                                  <input class="form-check-input" type="radio" name="select_type" id="dessert" value="카페/디저트" checked>
+                                  <h5 class="form-check-label sub" for="dessert">
+                                    &nbsp;&nbsp;카페/디저트
+                                  </h5>
+                              </div>
+                      </div>
+                      <div class="card">
+                          <img class="card-img-top" src="{{ url_for('static', filename='img/kor.jpg')}}">
+                              <div class="form-check pl-5 pt-4">
+                                  <input class="form-check-input" type="radio" name="select_type" id="korean" value="한식" >
+                                  <h5 class="form-check-label sub" for="korean">
+                                    &nbsp;&nbsp;한식
+                                  </h5> <br>
+                              </div>
+                      </div>
+                      <div class="card">
+                          <img class="card-img-top" src="{{ url_for('static', filename='img/chi.jpg')}}">
+                              <div class="form-check pl-5 pt-4">
+                                  <input class="form-check-input" type="radio" name="select_type" id="chinese" value="중식">
+                                  <h5 class="form-check-label sub" for="chinese">
+                                    &nbsp;&nbsp;중식
+                                  </h5>
+                              </div>
+                      </div>
+                      <div class="card">
+                          <img class="card-img-top" src="{{ url_for('static', filename='img/jap.jpeg')}}">
+                              <div class="form-check pl-5 pt-4">
+                                  <input class="form-check-input" type="radio" name="select_type" id="japanese" value="일식">
+                                  <h5 class="form-check-label sub" for="japanese">
+                                    &nbsp;&nbsp;일식
+                                  </h5>
+                              </div>
+                      </div>
+                      <div class="card">
+                          <img class="card-img-top" src="{{ url_for('static', filename='img/wes.jpg')}}">
+                              <div class="form-check pl-5 pt-4">
+                                  <input class="form-check-input" type="radio" name="select_type" id="western" value="양식">
+                                  <h5 class="form-check-label sub" for="western">
+                                    &nbsp;&nbsp;양식
+                                  </h5>
+                              </div>
+                      </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mr-auto">Select</button>
+            </form>
+
+        </div>
+
+        <br>
+        <footer class="mycenter">
+            @tave
+        </footer>
+        <br>
+    </body>
+</html>

@@ -1,0 +1,116 @@
+<!--
+실행환경
+bootstrap 4.0.0
+
+2) predict.html
+선택한 카테고리를 기반으로 예측결과를 보여주는 페이지
+ => 선택한 카테고리 로드
+ => 긍정 / 부정 워드클라우드 시각화
+ => main.py에서 render시 전송한 데이터 값 출력
+    1) category - 사용자가 선택한 카테고리 분류
+    2) temp - 기온
+    3) rain - 강수량
+    4) sale - 날씨 데이터에 따른 sale 예측값
+    5) sale2 - 날짜 데이터에 따른 sale 예측값
+        + 평균 매출량과 비교 계산
+
+-->
+
+<!doctype html>
+    <html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+        <!--google font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+        <title>MSG: 만족시키자! 손님! 고객!</title>
+
+        <style>
+            .mycenter{
+                width: 1200px;
+                margin:auto;
+            }
+            .title {font-family: 'Black Han Sans', sans-serif;}
+            .sub {font-family: 'Gowun Dodum', sans-serif;}
+            .img {
+              width: 370px;
+              height: 230px;
+              object-fit: cover;
+            }
+            .tab { white-space: pre; }
+        </style>
+    </head>
+    <body>
+        <br>
+        <nav aria-label="breadcrumb" class="mycenter">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Home</a></li>
+            <li class="breadcrumb-item"><a href="/predict">Prediction</a></li>
+          </ol>
+        </nav>
+        <div class="mycenter">
+          <div class="jumbotron">
+              <h1 class="display-4 title">#{{result[0].category}}</h1>
+              <br>
+              <img class="card-img-top img" src="{{ url_for('static', filename='img/pos.png')}}" >
+              <img class="card-img-top img" src="{{ url_for('static', filename='img/neg.png')}}" >
+              <br>
+              <p class="lead sub" > &nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [긍정 리뷰 워드클라우드]
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [부정 리뷰 워드클라우드]</p>
+              <br>
+              <p class="lead sub" style="color: blue;">손님들이 "밀크 서비스 생크림" 부분에서 만족하고 있군요!</p>
+              <p class="lead sub" style="color: red;">그런데 "빙수 커피 아이스크림"은 개선해야 할 것 같아요</p>
+
+              <p class="lead sub" style="color: green;">다음주 날씨를 예상해보면 기온은 {{result[0].temp}}℃ 강수확률은 {{result[0].rain}}% 이네요</p>
+
+              <p class="lead sub" >날씨에 따라 <b>{{result[0].category}}</b>분야의 판매량을 예측한 결과</p>
+                {%if (149090.675585 > result[0].sale2)%}
+                     <p class="lead sub" >
+                         평균 매출의
+                         {{(((149090.675585 - result[0].sale2) / 149090.675585) * 100)[0]}}
+                         % 판매량을 보이므로 이에 유의하여 재료를 준비해주세요</p>
+
+                 {%elif (149090.675585 < result[0].sale2)%}
+                    <p class="lead sub" >
+                     평균 매출의 {{-(((149090.675585 - result[0].sale2) / 149090.675585) * 100)[0]|int}}
+                        % 판매량을 보이므로 이에 유의하여 재료를 준비해주세요</p>
+
+                 {%else%}
+                     <p class="lead sub" >
+                         평균 매출과 같은 판매량을 보이므로 이에 유의하여 재료를 준비해주세요<p>
+                    {%endif%}
+          </div>
+
+        </div>
+
+        <footer class="mycenter">
+            @tave
+        </footer>
+    <br>
+    </body>
+</html>
